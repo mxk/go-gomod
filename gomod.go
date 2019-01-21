@@ -67,7 +67,7 @@ func (m Module) Name() string { return m.path[m.base:m.at] }
 // Version returns the module version without the 'v' prefix.
 func (m Module) Version() string {
 	if v := m.at + 2; v < len(m.path) {
-		return m.path[v:]
+		return strings.TrimSuffix(m.path[v:], "+incompatible")
 	}
 	return ""
 }
@@ -142,7 +142,7 @@ func parse(p string) (base, at int) {
 func trim(path string, at int) string {
 	for i, c := range []byte(path[at:]) {
 		if os.IsPathSeparator(c) {
-			return strings.TrimSuffix(path[:at+i], "+incompatible")
+			return path[:at+i]
 		}
 	}
 	return path
