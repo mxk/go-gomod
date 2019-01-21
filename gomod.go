@@ -9,7 +9,7 @@ import (
 	"strings"
 	"sync"
 	"sync/atomic"
-	_ "unsafe"
+	_ "unsafe" // For go:linkname
 )
 
 // File returns the file that defines function fn.
